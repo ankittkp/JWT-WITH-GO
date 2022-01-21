@@ -1,11 +1,11 @@
 package main
 
 import (
-	"github.com/gin-gonic/gin"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
-// Logout : Extract the JWT metadata. If true then delete the metadata, and so JWT invalid immediately.
 func Logout(c *gin.Context) {
 	au, err := GetTokenMetadata(c.Request)
 	if err != nil {

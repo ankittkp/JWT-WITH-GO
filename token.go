@@ -2,19 +2,20 @@ package main
 
 import (
 	"fmt"
-	"github.com/dgrijalva/jwt-go"
-	"github.com/twinj/uuid"
 	"log"
 	"net/http"
 	"os"
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/dgrijalva/jwt-go"
+	"github.com/twinj/uuid"
 )
 
 func GetNewToken(userid uint64) (*TokenDetails, error) {
 	var err error
-	td.AccessToken, err =  CreateAccessToken(userid)
+	td.AccessToken, err = CreateAccessToken(userid)
 	fmt.Printf("access token is : %v", td.AccessToken)
 	if err != nil {
 		return nil, err
@@ -26,14 +27,6 @@ func GetNewToken(userid uint64) (*TokenDetails, error) {
 	return td, err
 }
 
-
-/*
-CreateAccessToken : Generating JWT Token which is valid for 15 minutes
-Some Implementation Loopholes :
-1. user can log in, then decide to log out immediately, but the user’s JWT remains valid until the expiration time is reached.
-2. The JWT might be hijacked and used by a hacker without the user doing anything about it until the token expires.
-3. The user will need to re-login after the token expires, thereby leading to a poor user experience.
-*/
 func CreateAccessToken(userid uint64) (string, error) {
 	td.AtExpires = time.Now().Add(time.Minute * 15).Unix()
 	td.AccessUuid = uuid.NewV4().String()
@@ -61,8 +54,6 @@ func CreateAccessToken(userid uint64) (string, error) {
 Since the uuid is unique each time it is created, a user can create more than one token. This happens when a user is logged in on different devices.
 The user can also log out from any of the devices without them being logged out from all devices. How cool!
 */
-
-
 
 // CheckValidToken : Check the validity of this token, whether it is still useful or it has expired
 func CheckValidToken(r *http.Request) error {
@@ -112,7 +103,6 @@ func VerifyTokenFromHeaders(r *http.Request) (*jwt.Token, error) {
 	return token, nil
 }
 
-
 // GetTokenMetadata : Get JWT Token Metadata
 func GetTokenMetadata(r *http.Request) (*TokenMetadata, error) {
 	token, err := VerifyTokenFromHeaders(r)
@@ -131,7 +121,7 @@ func GetTokenMetadata(r *http.Request) (*TokenMetadata, error) {
 		}
 		return &TokenMetadata{
 			AccessUuid: accessUuid,
-			UserId:   userId,
+			UserId:     userId,
 		}, nil
 	}
 	return nil, err
