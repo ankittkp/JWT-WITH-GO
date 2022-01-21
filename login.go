@@ -33,6 +33,9 @@ func NewLogin(c *gin.Context) {
 	c.JSON(http.StatusOK, tokens)
 }
 
+/*
+Login : It takes the credentials and checks from databases and logs them if the credentials are valid.
+*/
 func Login(c *gin.Context) {
 	var u User
 	if err := c.ShouldBindJSON(&u); err != nil {

@@ -13,6 +13,11 @@ import (
 	"github.com/twinj/uuid"
 )
 
+/*CreateRefreshToken : ( A refresh token has a longer lifespan, usually 7 days. This token is used to generate new access and refresh tokens.
+In the event that the access token expires, new sets of access and refresh tokens are created when the refresh token route is hit (from our application),
+handles the above problem well and also using a persistence storage(i.e. redis) layer to store JWT metadata.
+This will enable us to invalidate a JWT the very second the user logs out, thereby improving security.
+*/
 func CreateRefreshToken(userid uint64) (string, error) {
 	td.RtExpires = time.Now().Add(time.Hour * 24 * 7).Unix()
 	td.RefreshUuid = uuid.NewV4().String()

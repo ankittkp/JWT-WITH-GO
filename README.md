@@ -45,7 +45,7 @@ It has a feature that automatically deletes data whose expiration time has reach
 Since Redis is key-value storage, its keys need to be unique, to achieve this, use UUID as the key and use the user id as the value. Also, the UUID is unique each time it is created, a user can create more than one token. This happens when a user is logged in on different devices. The user can also log out from any of the devices without them being logged out from all devices.
 If the expiration time is reached for either the refresh token or the access token, the JWT is automatically deleted from Redis.
 
-# Note: Install Redis if is not installed
+# Note: Install Redis if it's not installed
 
 # Access Token
 Generating JWT Token which is valid for 15 minutes Some Implementation Loopholes :

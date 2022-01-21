@@ -20,6 +20,9 @@ var (
 	td = &TokenDetails{}
 )
 
+/*
+Each time we run main.go redis will automatically connect
+*/
 func init() {
 	dsn := os.Getenv("REDIS_DSN")
 	if len(dsn) == 0 {

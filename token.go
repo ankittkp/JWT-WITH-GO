@@ -27,6 +27,13 @@ func GetNewToken(userid uint64) (*TokenDetails, error) {
 	return td, err
 }
 
+/*
+CreateAccessToken : Generating JWT Token which is valid for 15 minutes
+Some Implementation Loopholes :
+1. user can log in, then decide to log out immediately, but the user’s JWT remains valid until the expiration time is reached.
+2. The JWT might be hijacked and used by a hacker without the user doing anything about it until the token expires.
+3. The user will need to re-login after the token expires, thereby leading to a poor user experience.
+*/
 func CreateAccessToken(userid uint64) (string, error) {
 	td.AtExpires = time.Now().Add(time.Minute * 15).Unix()
 	td.AccessUuid = uuid.NewV4().String()
