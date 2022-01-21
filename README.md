@@ -34,9 +34,8 @@ The signature is a signed string. For HMAC signing algorithms, we use the Base64
   secret)
 ```
 
-1. main(): 
-2. init():```
-Each time we run main.go redis will automatically connect```
+1. main(): ```Contain all the routes```
+2. init():```Each time we run main.go redis will automatically connect```
 3. login() and newlogin() : ``` It takes the credentials and checks from databases and logs them if the credentials are valid.```
 4. logout() : ```Extract the JWT metadata. If true then delete the metadata, and so JWT invalid immediately.```
 5. middleware() : ```two routes that require authentication: /login and /logout as anybody can access that, Middleware will secure these routes```
